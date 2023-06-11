@@ -1,0 +1,125 @@
+body {
+    background-image: url('../../templates/background.jpg') !important;
+    background-size: cover;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-color: #e6e6e6;
+}
+
+input[type="text"]{
+    width:inherit;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.container {
+    min-height: 100% !important;
+    margin: 0;
+    /* padding: 20px; */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+}
+
+.header {
+    padding: 5px;
+    background: rgb(255, 255, 255);
+    text-align: center;
+    height: fit-content;
+    position: sticky !important;
+    top: 0;
+    /* border-radius:10px 10px 0 0; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: small;
+    /* margin-bottom: 20px; */
+}
+
+.chat-window {
+
+    padding: 10px;
+    background-color: #e6e6e6;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.timestamp {
+    font-weight:lighter; 
+    font-size: 12px; 
+    padding: 10px 0 0 0 ;
+    color: #6b6b6b;
+}
+.bot-message,
+.user-message {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.bot-message {
+    background-color: #ffffff;
+    margin-right: 10%;
+    border-radius: 0 10px 10px 10px;
+    text-align: left;
+    width: fit-content;
+}
+
+.user-message {
+    background-color: #DCF8C6;
+    border-radius: 5px;
+    text-align: right;
+}
+
+.input-field {
+    background: rgb(235, 186, 151);
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: auto;
+    width: fit-content;
+    text-align: right;
+    border-radius: 10px 0 10px 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.btn-send {
+    background-color: rgb(208, 90, 5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-yes {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-no {
+    background-color: #E57373;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.definition-list {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.definition-list li {
+    margin-bottom: 5px;
+}

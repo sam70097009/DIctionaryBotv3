@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DictionaryBot</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+</head>
+<body>
+    <div class="container" style="height: 100%;">
+        <div class="header">
+            <h1>Welcome to DictionaryBot</h1>
+        </div>
+
+        <div class="chat-window">
+            <ul class="messages">
+               
+                {% if word %}
+                <div class="input-field">
+                    {{ word }}
+
+                    <div class="timestamp">
+                        {{ timestamp }}
+                    </div>
+                    
+                </div>
+                {% endif %}
+
+
+                {% if not show_regret %}
+                {% if definitions %}
+                <li class="bot-message">
+                    <p>Here are the meanings of the word "{{ word }}":</p>
+                    <ul class="definition-list">
+                        {% for definition in definitions %}
+                        <li>{{ definition }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <div class="timestamp">
+                        {{ timestamp }}
+                    </div>
+                </li>
+                {% endif %}
+                {% endif %}
+
+                {% if word %}
+                
+                {% if not show_thanks %}
+                {% if not show_regret %}
+                <li class="bot-message">
+                    <p>Is this the word you were looking for? "{{ word }}"</p>
+                    
+                    <form action="{{ url_for('definition') }}" method="post">
+                        <input type="hidden" name="word" value="{{ word }}">
+                        <button type="submit" class="btn-yes" name="answer" value="yes">Yes</button>
+                        <button type="submit" class="btn-no" name="answer" value="no">No</button>
+                    </form>
+                    <div class="timestamp">
+                        {{ timestamp }}
+                    </div>
+                </li>
+                {% endif %}
+                {% endif %}
+                    {% if show_thanks %}
+                    <li class="bot-message">
+                        <p>I'm glad I was able to help.</p>
+                        <div class="timestamp">
+                            {{ timestamp }}
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% if show_regret %}
+                    <li class="bot-message">
+                        <p>I'm sorry, try again.</p>
+                        <div class="timestamp">
+                            {{ timestamp }}
+                        </div>
+                    </li>
+                    {% endif %}
+                {% endif %}
+
+                {% if error %}
+                <li class="bot-message">
+                    <p>Sorry, the definition for the word "{{ word }}" could not be found.</p>
+                    <p>Please try again.</p>
+                </li>
+                {% endif %}
+            </ul>
+            <div class="input-field">
+                <form action="{{ url_for('definition') }}" method="post">
+                    <input type="text" id="word" name="word" placeholder="Enter a word...">
+                    <button type="submit" class="btn-send">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

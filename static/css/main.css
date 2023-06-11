@@ -72,8 +72,11 @@ input[type="text"]{
 
 .user-message {
     background-color: #DCF8C6;
-    border-radius: 5px;
     text-align: right;
+    border-radius: 10px 0 10px 10px;
+    margin-top: 20px;
+    margin-left: auto;
+    width: fit-content; 
 }
 
 .input-field {
@@ -81,7 +84,7 @@ input[type="text"]{
     padding: 10px;
     margin-top: 20px;
     margin-left: auto;
-    width: fit-content;
+    width: fit-content; 
     text-align: right;
     border-radius: 10px 0 10px 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

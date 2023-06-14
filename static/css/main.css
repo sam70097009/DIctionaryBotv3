@@ -6,6 +6,23 @@ body {
     background-color: #e6e6e6;
 }
 
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.animated {
+    animation: fadeIn 1s ease forwards;
+}
+
+
 input[type="text"]{
     width:inherit;
     border: none;
@@ -17,7 +34,7 @@ input[type="text"]{
     min-height: 100% !important;
     margin: 0;
     /* padding: 20px; */
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: #e6e6e6;
     border-radius: 10px;
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
 }
@@ -37,11 +54,18 @@ input[type="text"]{
 }
 
 .chat-window {
-
     padding: 10px;
     background-color: #e6e6e6;
     overflow-y: auto;
     height: 100%;
+    margin: 0 auto; /* Center the chat window */
+    max-width: 768px; /* Set a maximum width for wider screens */
+}
+
+@media (max-width: 768px) {
+    .chat-window {
+        width: 100%; /* Fill the width for narrower screens */
+    }
 }
 
 .messages {
@@ -80,6 +104,7 @@ input[type="text"]{
 }
 
 .input-field {
+    
     background: rgb(235, 186, 151);
     padding: 10px;
     margin-top: 20px;

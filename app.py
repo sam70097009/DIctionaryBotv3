@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import requests
 from bs4 import BeautifulSoup
 import time
+from googletrans import Translator
+
 
 app = Flask(__name__)
 
@@ -21,6 +23,16 @@ def get_word_definition(word):
         # Handle the error here, for example, print an error message
         print(f"An error occurred: {str(e)}")
         return None, None
+
+def translate_text(text, dest_lang):
+    try:
+        translator = Translator(service_urls=['translate.google.com'])
+        translation = translator.translate(text, dest=dest_lang)
+        return translation.text
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return None
+
 
 @app.route('/')
 def index():
@@ -61,6 +73,37 @@ def definition():
         chat_history.append(bot_response)
 
         return render_template('index.html', chat_history=chat_history, timestamp=timestamp, error=True)
+
+@app.route('/translate', methods=['POST'])
+def translate():
+    text = request.form['text']
+    dest_lang = request.form['dest_lang']
+    translation = translate_text(text, dest_lang)
+
+    timestamp = time.strftime('%H:%M')
+
+    if translation:
+        # Append user's message to the chat history
+        user_message = {'content': text, 'sender': 'user', 'timestamp': timestamp}
+        chat_history.append(user_message)
+
+        # Append bot's response to the chat history
+        bot_response = {'content': translation, 'sender': 'bot', 'timestamp': timestamp}
+        chat_history.append(bot_response)
+
+        return render_template('index.html', chat_history=chat_history, timestamp=timestamp)
+    else:
+        # Append user's message to the chat history
+        user_message = {'content': text, 'sender': 'user', 'timestamp': timestamp}
+        chat_history.append(user_message)
+
+        # Append bot's response with error message to the chat history
+        bot_response = {'content': 'Sorry, I could not translate that text.', 'sender': 'bot', 'timestamp': timestamp}
+        chat_history.append(bot_response)
+
+        return render_template('index.html', chat_history=chat_history, timestamp=timestamp, error=True)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

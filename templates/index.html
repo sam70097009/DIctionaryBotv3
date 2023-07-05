@@ -25,6 +25,14 @@
                     <button type="submit" class="btn-send">Send</button>
                 </form>
             </div>
+            <div class="input-field">
+                <form action="{{ url_for('translate') }}" method="post">
+                    <input type="text" id="text" name="text" placeholder="Enter a text...">
+                    <input type="hidden" id="dest_lang" name="dest_lang" value="en">
+                    <button type="submit" class="btn-send">Translate</button>
+                </form>
+            </div>            
+            
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

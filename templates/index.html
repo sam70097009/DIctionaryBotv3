@@ -12,78 +12,12 @@
 
         <div class="chat-window">
             <ul class="messages">
-               
-                {% if word %}
-                <div class="input-field">
-                    {{ word }}
-
-                    <div class="timestamp">
-                        {{ timestamp }}
-                    </div>
-                    
-                </div>
-                {% endif %}
-
-
-                {% if not show_regret %}
-                {% if definitions %}
-                <li class="bot-message">
-                    <p>Here are the meanings of the word "{{ word }}":</p>
-                    <ul class="definition-list">
-                        {% for definition in definitions %}
-                        <li>{{ definition }}</li>
-                        {% endfor %}
-                    </ul>
-                    
-                    <div class="timestamp">
-                        {{ timestamp }}
-                    </div>
-                </li>
-                {% endif %}
-                {% endif %}
-
-                {% if word %}
-                
-                {% if not show_thanks %}
-                {% if not show_regret %}
-                <li class="bot-message">
-                    <p>Is this the word you were looking for? "{{ word }}"</p>
-                    
-                    <form action="{{ url_for('definition') }}" method="post">
-                        <input type="hidden" name="word" value="{{ word }}">
-                        <button type="submit" class="btn-yes" name="answer" value="yes">Yes</button>
-                        <button type="submit" class="btn-no" name="answer" value="no">No</button>
-                    </form>
-                    <div class="timestamp">
-                        {{ timestamp }}
-                    </div>
-                </li>
-                {% endif %}
-                {% endif %}
-                    {% if show_thanks %}
-                    <li class="bot-message">
-                        <p>I'm glad I was able to help.</p>
-                        <div class="timestamp">
-                            {{ timestamp }}
-                        </div>
+                {% for message in chat_history %}
+                    <li class="message {% if message.sender == 'user' %}user-message{% else %}bot-message{% endif %}">
+                        <p>{{ message.content }}</p>
+                        <div class="timestamp">{{ message.timestamp }}</div>
                     </li>
-                    {% endif %}
-                    {% if show_regret %}
-                    <li class="bot-message">
-                        <p>I'm sorry, try again.</p>
-                        <div class="timestamp">
-                            {{ timestamp }}
-                        </div>
-                    </li>
-                    {% endif %}
-                {% endif %}
-
-                {% if error %}
-                <li class="bot-message">
-                    <p>Sorry, the definition for the word "{{ word }}" could not be found.</p>
-                    <p>Please try again.</p>
-                </li>
-                {% endif %}
+                {% endfor %}
             </ul>
             <div class="input-field">
                 <form action="{{ url_for('definition') }}" method="post">
@@ -91,8 +25,29 @@
                     <button type="submit" class="btn-send">Send</button>
                 </form>
             </div>
+            <div class="input-field">
+                <form action="{{ url_for('translate') }}" method="post">
+                    <input type="text" id="text" name="text" placeholder="Enter a text...">
+                    <input type="hidden" id="dest_lang" name="dest_lang" value="en">
+                    <button type="submit" class="btn-send">Translate</button>
+                </form>
+            </div>            
+            
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Remove initial bot message after user sends their first message
+        var userMessageSent = false;
+        document.querySelector('.chat-window form').addEventListener('submit', function() {
+            if (!userMessageSent) {
+                var initialBotMessage = document.querySelector('.bot-message.initial');
+                if (initialBotMessage) {
+                    initialBotMessage.remove();
+                }
+                userMessageSent = true;
+            }
+        });
+    </script>
 </body>
 </html>

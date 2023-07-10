@@ -7,7 +7,7 @@ from googletrans import Translator
 
 app = Flask(__name__)
 
-# Create an empty list to store the chat history
+
 chat_history = []
 
 def get_word_definition(word):
@@ -20,7 +20,7 @@ def get_word_definition(word):
         definitions = [i.text for i in tag]
         return definitions, timestamp
     except Exception as e:
-        # Handle the error here, for example, print an error message
+        
         print(f"An error occurred: {str(e)}")
         return None, None
 
@@ -36,7 +36,7 @@ def translate_text(text, dest_lang):
 
 @app.route('/')
 def index():
-    # Add initial bot message to the chat history
+    
     if len(chat_history) == 0:
         timestamp = time.strftime('%H:%M')
         initial_bot_message = {
@@ -54,21 +54,21 @@ def definition():
     definitions, timestamp = get_word_definition(word)
 
     if definitions:
-        # Append user's message to the chat history
+        
         user_message = {'content': word, 'sender': 'user', 'timestamp': timestamp}
         chat_history.append(user_message)
 
-        # Append bot's response to the chat history
+        
         bot_response = {'content': definitions, 'sender': 'bot', 'timestamp': timestamp}
         chat_history.append(bot_response)
 
         return render_template('index.html', chat_history=chat_history, timestamp=timestamp)
     else:
-        # Append user's message to the chat history
+        
         user_message = {'content': word, 'sender': 'user', 'timestamp': timestamp}
         chat_history.append(user_message)
 
-        # Append bot's response with error message to the chat history
+        
         bot_response = {'content': 'Sorry, I couldn\'t find a definition for that word.', 'sender': 'bot', 'timestamp': timestamp}
         chat_history.append(bot_response)
 
@@ -106,6 +106,5 @@ def translate():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
-
+    
+    app.run(debug=True)
